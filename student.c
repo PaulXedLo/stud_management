@@ -4,6 +4,7 @@
 struct Student *head = NULL;
 void show_menu()
 {
+    // show main menu
     printf("--Student management system--\n");
     printf("Choose an option: \n");
     printf("1. Add a new student\n");
@@ -48,12 +49,14 @@ void add_student()
 void save_student()
 {
     FILE *student_list = fopen("student_list.csx", "w");
+    // check to see if file exists
     if (student_list == NULL)
     {
         printf("Couldn't open file!");
         return;
     }
     struct Student *current = head;
+    // loop through student list and save
     while (current != NULL)
     {
         fprintf(student_list, "%d,%s,%s,%d,%.2f\n",
@@ -65,4 +68,37 @@ void save_student()
         current = current->next;
     }
     fclose(student_list);
+}
+void display_all_students()
+{
+    system("cls");
+    FILE *student_list = fopen("student_list.csx", "r");
+    // check to see if file exists
+    if (student_list == NULL)
+    {
+        printf("No students. File deosn't exist yet!");
+        return;
+    }
+    // check to see if there is any students
+    if (head == NULL)
+    {
+        printf("There are currently no students.\n\n");
+    }
+    else
+    {
+        struct Student *current = head;
+        // loop through student list and display data
+        while (current != NULL)
+        {
+            printf("ID: %d | Name: %s %s | Age: %d | GPA: %.2f\n",
+                   current->id,
+                   current->first_name,
+                   current->last_name,
+                   current->age,
+                   current->gpa);
+            // go to the next student
+            current = current->next;
+        }
+        printf("\n");
+    }
 }

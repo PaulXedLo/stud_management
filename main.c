@@ -13,6 +13,9 @@ int main(void)
         case 1:
             add_student();
             break;
+        case 3:
+            display_all_students();
+            break;
         default:
             printf("Invalid option, choose between 1-5\n");
             break;
