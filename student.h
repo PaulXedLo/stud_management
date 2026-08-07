@@ -14,6 +14,8 @@ struct Student
 // Function prototypes
 void show_menu();
 void add_student();
+void save_student();
+void load_students();
 void display_all_students();
 void search_student_by_id(int target_id);
 void delete_student(int target_id);

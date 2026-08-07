@@ -9,7 +9,8 @@ void show_menu()
     printf("1. Add a new student\n");
     printf("2. Remove a student\n");
     printf("3. Review student list\n");
-    printf("4. Search student by ID\n\n");
+    printf("4. Search student by ID\n");
+    printf("0. Exit\n");
 }
 void add_student()
 {
@@ -24,7 +25,7 @@ void add_student()
     printf("Enter the GPA: \n");
     scanf("%f", &new->gpa);
     new->next = NULL;
-    if (head = NULL)
+    if (head == NULL)
     {
         new->id = 1;
         head = new;
@@ -41,4 +42,27 @@ void add_student()
         current->next = new;
     }
     printf("Successfully added a student with the id of: %d\n\n", new->id);
+    save_student();
+    fflush(stdin);
+}
+void save_student()
+{
+    FILE *student_list = fopen("student_list.csx", "w");
+    if (student_list == NULL)
+    {
+        printf("Couldn't open file!");
+        return;
+    }
+    struct Student *current = head;
+    while (current != NULL)
+    {
+        fprintf(student_list, "%d,%s,%s,%d,%.2f\n",
+                current->id,
+                current->first_name,
+                current->last_name,
+                current->age,
+                current->gpa);
+        current = current->next;
+    }
+    fclose(student_list);
 }

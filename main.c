@@ -4,7 +4,22 @@
 int main(void)
 {
     int option;
-    show_menu();
-    scanf("%d", &option);
+    while (1)
+    {
+        show_menu();
+        scanf("%d", &option);
+        switch (option)
+        {
+        case 1:
+            add_student();
+            break;
+        default:
+            printf("Invalid option, choose between 1-5\n");
+            break;
+        case 0:
+            printf("Exiting.");
+            return 0;
+        }
+    }
     return 0;
 }
