@@ -1,6 +1,7 @@
 #include "student.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 struct Student *head = NULL;
 void show_menu()
 {
@@ -100,5 +101,50 @@ void display_all_students()
             current = current->next;
         }
         printf("\n");
+    }
+}
+void delete_student(int target_id)
+{
+}
+void load_students()
+{
+    FILE *student_list = fopen("student_list.csx", "r");
+    if (student_list == NULL)
+    {
+        printf("Error opening");
+        return;
+    }
+    // Temporary variables to hold the data as we read it from the file
+    int temp_id, temp_age;
+    float temp_gpa;
+    char temp_first[50], temp_last[50];
+    // Read everything until you hit a comma
+    while (fscanf(student_list, "%d,%[^,],%[^,],%d,%f\n", &temp_id, temp_first, temp_last, &temp_age, &temp_gpa) == 5)
+    {
+        struct Student *new = malloc(sizeof(struct Student));
+
+        new->id = temp_id;
+        new->age = temp_age;
+        new->gpa = temp_gpa;
+        // using strcpy to copy the text into the arrays
+        strcpy(new->first_name, temp_first);
+        strcpy(new->last_name, temp_last);
+
+        new->next = NULL;
+        // linking them back to the list so id's stay in order
+        if (head == NULL)
+        {
+            head = new; // loading first student
+        }
+        else
+        {
+            struct Student *current = head;
+            while (current->next != NULL)
+            {
+                current = current->next;
+            }
+            current->next = new;
+        }
+        fclose(student_list);
     }
 }

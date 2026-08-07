@@ -3,6 +3,7 @@
 
 int main(void)
 {
+    load_students();
     int option;
     while (1)
     {
