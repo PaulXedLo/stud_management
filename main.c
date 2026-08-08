@@ -14,6 +14,9 @@ int main(void)
         case 1:
             add_student();
             break;
+        case 2:
+            delete_student();
+            break;
         case 3:
             display_all_students();
             break;

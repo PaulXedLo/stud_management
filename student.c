@@ -73,13 +73,6 @@ void save_student()
 void display_all_students()
 {
     system("cls");
-    FILE *student_list = fopen("student_list.csx", "r");
-    // check to see if file exists
-    if (student_list == NULL)
-    {
-        printf("No students. File deosn't exist yet!");
-        return;
-    }
     // check to see if there is any students
     if (head == NULL)
     {
@@ -103,8 +96,57 @@ void display_all_students()
         printf("\n");
     }
 }
-void delete_student(int target_id)
+void delete_student()
 {
+    system("cls");
+    if (head == NULL)
+    {
+        printf("No students.\n");
+        return;
+    }
+    int target_id;
+    printf("Enter the ID of the student you want removed: ");
+    scanf("%d", &target_id);
+    // if the student is the first one we want removed
+    if (head->id == target_id)
+    {
+        // store it temporarily
+        struct Student *temp = head;
+        // moving the pointer to the next student
+        head = head->next;
+        // freeing the old student from RAM
+        free(temp);
+
+        printf("Student %d was removed!\n\n", target_id);
+        save_student();
+        fflush(stdin);
+        return;
+    }
+
+    // if the student is at the middle or the end
+    struct Student *current = head;
+    struct Student *previous = NULL;
+    // loop through the list and stop if we find the id or the end
+    while (current != NULL && current->id != target_id)
+    {
+        previous = current;
+        current = current->next;
+    }
+
+    // if we reach the end
+    if (current == NULL)
+    {
+        printf("Student %d not found here.\n\n", target_id);
+    }
+    else
+    {
+        previous->next = current->next;
+        // freeing current node
+        free(current);
+        printf("Student %d was removed\n\n", target_id);
+        save_student();
+    }
+    fflush(stdin);
 }
 void load_students()
 {
@@ -145,6 +187,6 @@ void load_students()
             }
             current->next = new;
         }
-        fclose(student_list);
     }
+    fclose(student_list);
 }
