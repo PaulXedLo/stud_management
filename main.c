@@ -20,6 +20,9 @@ int main(void)
         case 3:
             display_all_students();
             break;
+        case 4:
+            search_student_by_id();
+            break;
         default:
             printf("Invalid option, choose between 1-5\n");
             break;

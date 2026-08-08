@@ -17,6 +17,6 @@ void add_student();
 void save_student();
 void load_students();
 void display_all_students();
-void search_student_by_id(int target_id);
+void search_student_by_id();
 void delete_student();
 #endif

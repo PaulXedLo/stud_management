@@ -190,3 +190,32 @@ void load_students()
     }
     fclose(student_list);
 }
+void search_student_by_id()
+{
+    system("cls");
+    // checking if list is empty
+    if (head == NULL)
+    {
+        printf("No students available.");
+        return;
+    }
+    int target_id;
+    printf("Enter the id of the student you want to find: ");
+    scanf("%d", &target_id);
+
+    struct Student *current = head;
+    while (current != NULL)
+    {
+        if (current->id == target_id)
+        {
+            printf("\n---Student Found---\n");
+            printf("ID: %d\n", current->id);
+            printf("First Name: %s\n", current->first_name);
+            printf("Last Name:  %s\n", current->last_name);
+            printf("Age:  %d\n", current->age);
+            printf("GPA: %.2f\n\n", current->gpa);
+            return;
+        }
+        current = current->next;
+    }
+}
